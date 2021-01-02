@@ -7,6 +7,11 @@ module.exports = {
   module: {
     rules: [
       {
+        include: /node_modules/,
+        test: /\.mjs$/,
+        type: 'javascript/auto'
+      },
+      {
         exclude: /(node_modules)/,
         test: /\.(js|jsx)$/,
         use: [
@@ -21,10 +26,13 @@ module.exports = {
   plugins: [
     new webpack.ProvidePlugin({
       Buffer: ['buffer', 'Buffer'],
-      process: 'process/browser'
+      process: 'process/browser.js'
     }),
   ],
   resolve: {
+    alias: {
+      'react/jsx-runtime': require.resolve('react/jsx-runtime')
+    },
     extensions: ['.js', '.jsx'],
     fallback: {
       buffer: require.resolve('buffer/'),
